@@ -1,2 +1,14 @@
 www.google.com
-www.example.com
+example1.com
+example2.com
+www.google.com
+%2Fwww.google.com
+www.google.com
+onward
+onward
+append
+www.google.com
+googles
+www.google.com
+url
+here
