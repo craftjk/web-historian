@@ -6,6 +6,7 @@ var archive = require('/Users/HR10/Code/kylecraft/2014-06-web-historian/helpers/
 var httpHelp = require('/Users/HR10/Code/kylecraft/2014-06-web-historian/web/http-helpers.js');
 var fs = require('fs');
 var http = require('/Users/HR10/Code/kylecraft/2014-06-web-historian/node_modules/http-request/lib/main.js');
+var mysql = require('mysql');
 
 // archive them
 exports.goFetch = function(earl) {
@@ -19,7 +20,6 @@ exports.goFetch = function(earl) {
     }
   }, '/Users/HR10/Code/kylecraft/2014-06-web-historian/archives/sites/' + earl, function (err) {
     if (err) {
-      console.log("mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
       console.error(err);
       return;
     }
@@ -32,11 +32,6 @@ var urlStorage = fs.readFileSync('/Users/HR10/Code/kylecraft/2014-06-web-histori
 // find which ones have not been archived
 
 var archivedURLs = fs.readdirSync('/Users/HR10/Code/kylecraft/2014-06-web-historian/archives/sites');
-console.log('archivedURLs');
-console.log(archivedURLs);
-
-console.log('urlStorage');
-console.log(urlStorage);
 
 for (var i = 0; i < urlStorage.length; i++) {
   if (archivedURLs.indexOf(urlStorage[i]) === -1) {

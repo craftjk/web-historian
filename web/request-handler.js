@@ -4,7 +4,7 @@ var archive = require('../helpers/archive-helpers');
 var httpHelp = require('./http-helpers');
 var fs = require('fs');
 var http = require('/Users/HR10/Code/kylecraft/2014-06-web-historian/node_modules/http-request/lib/main.js');
-var fido = require('/Users/HR10/Code/kylecraft/2014-06-web-historian/workers/htmlfetcher.js');
+var mysql = require('mysql');
 
 
 exports.handleRequest = function (req, res) {
@@ -50,6 +50,26 @@ exports.handleRequest = function (req, res) {
         fs.appendFile(archive.paths.list, earl + "\n", function(appendErr) {
           appendErr ? console.log(appendErr) : console.log("Added " + earl + " to sites.txt. (YAY!)");
         });
+
+        var connection = mysql.createConnection({
+          host     : '127.0.0.1',
+          user     : 'root',
+          database : 'WH_DB'
+        });
+
+        connection.connect(function(err) {
+          if (err) {
+            console.error('error connecting: ' + err.stack);
+            return;
+          }
+        });
+
+        connection.query('INSERT INTO url_table (url, html) VALUES ("www.halp.com", "htmlhtmlhtml")', function(err, rows) {
+          err ? console.log('err: ' + err) : console.log('rows: ' + JSON.stringify(rows));
+          console.log('fields');
+        });
+
+        connection.end();
 
         // serve up the loading page while it waits
         fs.readFile('/Users/HR10/Code/kylecraft/2014-06-web-historian/web/public/loading.html', function(loadingErr, data) {
